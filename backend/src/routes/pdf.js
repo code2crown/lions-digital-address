@@ -1,5 +1,5 @@
 const express = require("express");
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-core");
 const Submission = require("../models/Submission");
 
 const router = express.Router();
@@ -19,9 +19,16 @@ router.get("/submission/:id", async (req, res) => {
     if (!submission) return res.status(404).send("Submission not found");
 
     browser = await puppeteer.launch({
-      headless: "new",
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    });
+  executablePath: process.env.CHROME_PATH,
+  headless: true,
+  args: [
+    "--no-sandbox",
+    "--disable-setuid-sandbox",
+    "--disable-dev-shm-usage",
+    "--disable-gpu",
+    "--single-process"
+  ],
+});
 
     const page = await browser.newPage();
     const html = generateHTML(submission);
@@ -350,3 +357,4 @@ function imageBlock(url, label) {
     </div>
   `;
 }
+
