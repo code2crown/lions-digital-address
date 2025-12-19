@@ -266,7 +266,7 @@ function handleAccept() {
       }
 
       // fallback: use regenerated link or invite.token
-      const CLIENT_URL = import.meta.env.CLIENT_URL || "http://localhost:5173";
+      const CLIENT_URL = import.meta.env.CLIENT_URL || "https://lions-digital-address.vercel.app";
 
       const link =
         rejectedInfo?.link || `${CLIENT_URL}/verify/${invite?.token}`;
@@ -373,7 +373,7 @@ function handleAccept() {
           <div className="flex items-start gap-2">
             {sub.status === "accepted" && (
               <a
-              href={`http://localhost:5000/api/pdf/submission/${sub._id}`}
+              href={`https://lions-digital-address.onrender.com/api/pdf/submission/${sub._id}`}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded"
@@ -802,7 +802,7 @@ function handleAccept() {
 
           <div className="flex gap-3 items-center">
             <a
-              href={`http://localhost:5000/api/pdf/submission/${sub._id}`}
+              href={`http://https://lions-digital-address.onrender.com/api/pdf/submission/${sub._id}`}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded"
@@ -888,3 +888,4 @@ function handleAccept() {
     </AdminLayout>
   );
 }
+
