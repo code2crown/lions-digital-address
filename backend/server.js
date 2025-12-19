@@ -31,8 +31,8 @@ app.use(
 app.use(
   cors({
     origin: [
-      "http://localhost:5173",
-      "http://127.0.0.1:5173",
+      "https://lions-digital-address.vercel.app",
+      "https://lions-digital-address-jzzbc15lb-code-2-crowns-projects.vercel.app/",
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -57,4 +57,5 @@ app.use("/api/pdf", pdfRoutes);
 app.get("/", (req, res) => res.send("Lions Digital Address Backend Running"));
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
 
