@@ -4,7 +4,7 @@ const Submission = require("../models/Submission");
 
 const router = express.Router();
 
-const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
+const CLIENT_URL = process.env.CLIENT_URL || "https://lions-digital-address.vercel.app";
 const GEO_KEY = process.env.GEOAPIFY_API_KEY;
 
 /* ================= PDF ROUTE ================= */
@@ -357,4 +357,5 @@ function imageBlock(url, label) {
     </div>
   `;
 }
+
 
