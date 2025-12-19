@@ -493,7 +493,7 @@ router.post("/reject/:id", async (req, res) => {
     // -----------------------------------
     // (B) GENERATE CORRECT FRONTEND URL
     // -----------------------------------
-    const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
+    const CLIENT_URL = process.env.CLIENT_URL || "https://lions-digital-address.vercel.app";
     const regeneratedLink = `${CLIENT_URL}/verify/${invite.token}`;
 
     // -----------------------------
@@ -525,3 +525,4 @@ router.post("/reject/:id", async (req, res) => {
 });
 
 module.exports = router;
+
