@@ -1,5 +1,5 @@
 const express = require("express");
-const puppeteer = require("puppeteer-core");
+const puppeteer = require("puppeteer");
 const Submission = require("../models/Submission");
 
 const router = express.Router();
@@ -357,5 +357,6 @@ function imageBlock(url, label) {
     </div>
   `;
 }
+
 
 
