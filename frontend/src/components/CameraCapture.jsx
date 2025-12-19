@@ -1,10 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
+import { MdCameraswitch } from "react-icons/md";
+
 
 export default function CameraCapture({ onCapture }) {
   const videoRef = useRef(null);
   const streamRef = useRef(null);
   const [active, setActive] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [facingMode, setFacingMode] = useState("environment");
 
   useEffect(() => {
     return () => {
@@ -13,11 +16,15 @@ export default function CameraCapture({ onCapture }) {
     };
   }, [previewUrl]);
 
-  async function startStream() {
+  async function startStream(mode = facingMode) {
     try {
+      stopStream();
+
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "environment" },
+        video: { facingMode: mode },
       });
+
+
       streamRef.current = stream;
       videoRef.current.srcObject = stream;
       await videoRef.current.play();
@@ -42,14 +49,17 @@ export default function CameraCapture({ onCapture }) {
     const canvas = document.createElement("canvas");
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
+
     const ctx = canvas.getContext("2d");
     ctx.drawImage(video, 0, 0);
 
     canvas.toBlob(
       (blob) => {
         if (!blob) return;
+
         if (previewUrl) URL.revokeObjectURL(previewUrl);
         const url = URL.createObjectURL(blob);
+
         setPreviewUrl(url);
         onCapture(blob);
         stopStream();
@@ -63,6 +73,12 @@ export default function CameraCapture({ onCapture }) {
     if (previewUrl) URL.revokeObjectURL(previewUrl);
     setPreviewUrl(null);
     startStream();
+  }
+
+  function switchCamera() {
+    const newMode = facingMode === "environment" ? "user" : "environment";
+    setFacingMode(newMode);
+    startStream(newMode);
   }
 
   return (
@@ -88,7 +104,9 @@ export default function CameraCapture({ onCapture }) {
             <video
               ref={videoRef}
               playsInline
-              className="w-full h-full object-cover"
+              className={`w-full h-full object-cover ${
+                facingMode === "user" ? "scale-x-[-1]" : ""
+              }`}
             />
           )}
 
@@ -112,6 +130,17 @@ export default function CameraCapture({ onCapture }) {
                        rounded-full shadow"
           >
             Capture
+          </button>
+        )}
+
+        {/* SWITCH CAMERA */}
+        {active && !previewUrl && (
+          <button
+            type="button"
+            onClick={switchCamera}
+            className="absolute top-2 left-2 bg-black/60 text-white w-9 h-9 rounded-full flex items-center justify-center shadow" aria-label="Switch camera"
+          >
+            <MdCameraswitch size={20} />
           </button>
         )}
 
