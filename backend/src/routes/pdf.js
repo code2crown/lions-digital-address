@@ -1,6 +1,6 @@
 const express = require("express");
 const puppeteer = require("puppeteer-core");
-const chromium = require("@sparticuz/chromium-min");
+const chromium = require("@sparticuz/chromium");
 const Submission = require("../models/Submission");
 
 const router = express.Router();
@@ -23,14 +23,10 @@ router.get("/submission/:id", async (req, res) => {
 
     const executablePath = await chromium.executablePath();
 
-if (!executablePath) {
-  throw new Error("Chromium executable path not found");
-}
-
 browser = await puppeteer.launch({
   args: chromium.args,
   defaultViewport: chromium.defaultViewport,
-  executablePath,
+  executablePath: await chromium.executablePath(),
   headless: chromium.headless,
 });
 
@@ -361,6 +357,7 @@ function imageBlock(url, label) {
     </div>
   `;
 }
+
 
 
 
