@@ -8,8 +8,6 @@ const router = express.Router();
 const CLIENT_URL = process.env.CLIENT_URL || "https://lions-digital-address.vercel.app";
 const GEO_KEY = process.env.GEOAPIFY_API_KEY;
 
-const execPath = await chromium.executablePath();
-console.log("🚀 Chromium Executable Path:", execPath);
 
 
 /* ================= PDF ROUTE ================= */
@@ -357,6 +355,7 @@ function imageBlock(url, label) {
     </div>
   `;
 }
+
 
 
 
