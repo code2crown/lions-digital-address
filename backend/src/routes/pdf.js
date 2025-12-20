@@ -1,5 +1,6 @@
 const express = require("express");
 const puppeteer = require("puppeteer-core");
+const chromium = require("@sparticuz/chromium");
 const Submission = require("../models/Submission");
 
 const router = express.Router();
@@ -19,15 +20,10 @@ router.get("/submission/:id", async (req, res) => {
     if (!submission) return res.status(404).send("Submission not found");
 
     browser = await puppeteer.launch({
-  executablePath: process.env.CHROME_PATH,
-  headless: true,
-  args: [
-    "--no-sandbox",
-    "--disable-setuid-sandbox",
-    "--disable-dev-shm-usage",
-    "--disable-gpu",
-    "--single-process"
-  ],
+  args: chromium.args,
+  defaultViewport: chromium.defaultViewport,
+  executablePath: await chromium.executablePath(),
+  headless: chromium.headless,
 });
 
     const page = await browser.newPage();
@@ -36,7 +32,7 @@ router.get("/submission/:id", async (req, res) => {
     page.setDefaultNavigationTimeout(0);
     page.setDefaultTimeout(0);
 
-    await page.setContent(html, { waitUntil: "domcontentloaded" });
+    await page.setContent(html, { waitUntil: "networkidle0" });
 
     // wait only if map exists
     if (submission.mapImageUrl) {
@@ -357,6 +353,7 @@ function imageBlock(url, label) {
     </div>
   `;
 }
+
 
 
 
