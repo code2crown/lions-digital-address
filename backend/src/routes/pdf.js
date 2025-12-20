@@ -37,6 +37,8 @@ browser = await puppeteer.launch({
     page.setDefaultTimeout(0);
 
     await page.setContent(html, { waitUntil: "networkidle0" });
+    await page.waitForTimeout(1000);
+
 
     // wait only if map exists
     if (submission.mapImageUrl) {
@@ -357,6 +359,7 @@ function imageBlock(url, label) {
     </div>
   `;
 }
+
 
 
 
