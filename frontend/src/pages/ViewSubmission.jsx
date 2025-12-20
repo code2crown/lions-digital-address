@@ -373,7 +373,7 @@ function handleAccept() {
           <div className="flex items-start gap-2">
             {sub.status === "accepted" && (
               <a
-              href={`https://lions-digital-address.onrender.com/api/pdf/submission/${sub._id}`}
+              href={`https://lions-digital-address.up.railway.app/api/pdf/submission/${sub._id}`}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded"
@@ -802,7 +802,7 @@ function handleAccept() {
 
           <div className="flex gap-3 items-center">
             <a
-              href={`http://https://lions-digital-address.onrender.com/api/pdf/submission/${sub._id}`}
+              href={`https://lions-digital-address.up.railway.app/api/pdf/submission/${sub._id}`}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded"
@@ -888,4 +888,5 @@ function handleAccept() {
     </AdminLayout>
   );
 }
+
 
