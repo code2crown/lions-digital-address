@@ -332,7 +332,7 @@ export default function CandidateForm() {
 
                   <div className="bg-gray-50 p-3 sm:p-4 rounded-lg border w-full box-border">
                     <p className="text-xs sm:text-sm text-gray-500">
-                      Registered Address
+                      Candidate Registered Address
                     </p>
                     <h3 className="text-sm font-semibold break-words">
                       {invite?.fullAddress}
@@ -344,6 +344,209 @@ export default function CandidateForm() {
                 </div>
               </div>
             </div>
+
+             {/* ADDRESS DETAILS SECTION */}
+            <div className="bg-white border border-gray-200 shadow-md rounded-xl mt-8 w-full">
+              <div className="max-w-5xl mx-auto px-5 py-6 w-full">
+                <h2 className="text-xl font-bold text-[#0B8A42] mb-4">
+                  Address Details
+                </h2>
+
+                <p className="text-gray-600 text-sm mb-6">
+                  Please provide accurate details about your stay at the given
+                  address. All fields are mandatory.
+                </p>
+
+                {/* MONTHS + YEARS DATA */}
+                {(() => {
+                  const months = [
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December",
+                  ];
+
+                  // Generate years from 1940 → current year
+                  const currentYear = new Date().getFullYear();
+                  let years = [];
+                  for (let y = currentYear; y >= 1970; y--) years.push(y);
+
+                  return (
+                    <div className="grid md:grid-cols-2 gap-5">
+                      {/* Ownership */}
+                      <div className="flex flex-col">
+                        <label className="text-sm font-medium text-gray-700 mb-1">
+                          Ownership <span className="text-red-600">*</span>
+                        </label>
+                        <select
+                          name="ownership"
+                          required
+                          value={form.ownership}
+                          onChange={updateForm}
+                          className="border rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-[#D4A017]"
+                        >
+                          <option value="">Select Ownership</option>
+                          <option value="owner">Owner</option>
+                          <option value="rented">Rented</option>
+                          <option value="pg">PG / Hostel</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+
+                      {/* Address Type */}
+                      <div className="flex flex-col">
+                        <label className="text-sm font-medium text-gray-700 mb-1">
+                          Address Type <span className="text-red-600">*</span>
+                        </label>
+                        <select
+                          name="addressType"
+                          required
+                          value={form.addressType}
+                          onChange={updateForm}
+                          className="border rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-[#D4A017]"
+                        >
+                          <option value="">Select Type</option>
+                          <option value="current">Current</option>
+                          <option value="permanent">Permanent</option>
+                        </select>
+                      </div>
+
+                      {/* FROM MONTH */}
+                      <div className="flex flex-col">
+                        <label className="text-sm font-medium text-gray-700 mb-1">
+                          From Month <span className="text-red-600">*</span>
+                        </label>
+                        <select
+                          name="fromMonth"
+                          required
+                          value={form.fromMonth}
+                          onChange={updateForm}
+                          className="border rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-[#D4A017]"
+                        >
+                          <option value="">Select Month</option>
+                          {months.map((m) => (
+                            <option key={m} value={m}>
+                              {m}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      {/* FROM YEAR */}
+                      <div className="flex flex-col">
+                        <label className="text-sm font-medium text-gray-700 mb-1">
+                          From Year <span className="text-red-600">*</span>
+                        </label>
+                        <select
+                          name="fromYear"
+                          required
+                          value={form.fromYear}
+                          onChange={updateForm}
+                          className="border rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-[#D4A017]"
+                        >
+                          <option value="">Select Year</option>
+                          {years.map((y) => (
+                            <option key={y} value={y}>
+                              {y}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      {/* TO MONTH */}
+                      <div className="flex flex-col">
+                        <label className="text-sm font-medium text-gray-700 mb-1">
+                          To Month <span className="text-red-600">*</span>
+                        </label>
+                        <select
+                          name="toMonth"
+                          required
+                          value={form.toMonth}
+                          onChange={updateForm}
+                          className="border rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-[#D4A017]"
+                        >
+                          <option value="">Select Month</option>
+                          {months.map((m) => (
+                            <option key={m} value={m}>
+                              {m}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      {/* TO YEAR */}
+                      <div className="flex flex-col">
+                        <label className="text-sm font-medium text-gray-700 mb-1">
+                          To Year <span className="text-red-600">*</span>
+                        </label>
+                        <select
+                          name="toYear"
+                          required
+                          value={form.toYear}
+                          onChange={updateForm}
+                          className="border rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-[#D4A017]"
+                        >
+                          <option value="">Select Year</option>
+                          {years.map((y) => (
+                            <option key={y} value={y}>
+                              {y}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      {/* VERIFIED BY RELATION */}
+                      <div className="flex flex-col">
+                        <label className="text-sm font-medium text-gray-700 mb-1">
+                          Verified By (Relation){" "}
+                          <span className="text-red-600">*</span>
+                        </label>
+                        <select
+                          name="verifiedByRelation"
+                          required
+                          value={form.verifiedByRelation}
+                          onChange={updateForm}
+                          className="border rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-[#D4A017]"
+                        >
+                          <option value="">Select Relation</option>
+                          <option value="self">Self</option>
+                          <option value="friend">Friend</option>
+                          <option value="family">Family</option>
+                          <option value="neighbour">Neighbour</option>
+                          <option value="landlord">Landlord</option>
+                        </select>
+                      </div>
+
+                      {/* VERIFIED PERSON NAME */}
+                      <div className="flex flex-col">
+                        <label className="text-sm font-medium text-gray-700 mb-1">
+                          Verified Person Name{" "}
+                          <span className="text-red-600">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          name="verifiedPersonName"
+                          placeholder="Enter Name"
+                          required
+                          value={form.verifiedPersonName}
+                          onChange={updateForm}
+                          className="border rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-[#D4A017]"
+                        />
+                      </div>
+                    </div>
+                  );
+                })()}
+              </div>
+            </div>
+
 
             {/* LOCATION ACCESS SECTION */}
             <div className="bg-white shadow-md border border-gray-200 rounded-xl mt-6">
@@ -546,210 +749,7 @@ export default function CandidateForm() {
   </div>
 </div>
 
-            {/* ADDRESS DETAILS SECTION */}
-            <div className="bg-white border border-gray-200 shadow-md rounded-xl mt-8 w-full">
-              <div className="max-w-5xl mx-auto px-5 py-6 w-full">
-                <h2 className="text-xl font-bold text-[#0B8A42] mb-4">
-                  Address Details
-                </h2>
-
-                <p className="text-gray-600 text-sm mb-6">
-                  Please provide accurate details about your stay at the given
-                  address. All fields are mandatory.
-                </p>
-
-                {/* MONTHS + YEARS DATA */}
-                {(() => {
-                  const months = [
-                    "January",
-                    "February",
-                    "March",
-                    "April",
-                    "May",
-                    "June",
-                    "July",
-                    "August",
-                    "September",
-                    "October",
-                    "November",
-                    "December",
-                  ];
-
-                  // Generate years from 1940 → current year
-                  const currentYear = new Date().getFullYear();
-                  let years = [];
-                  for (let y = currentYear; y >= 1970; y--) years.push(y);
-
-                  return (
-                    <div className="grid md:grid-cols-2 gap-5">
-                      {/* Ownership */}
-                      <div className="flex flex-col">
-                        <label className="text-sm font-medium text-gray-700 mb-1">
-                          Ownership <span className="text-red-600">*</span>
-                        </label>
-                        <select
-                          name="ownership"
-                          required
-                          value={form.ownership}
-                          onChange={updateForm}
-                          className="border rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-[#D4A017]"
-                        >
-                          <option value="">Select Ownership</option>
-                          <option value="owner">Owner</option>
-                          <option value="rented">Rented</option>
-                          <option value="pg">PG / Hostel</option>
-                          <option value="other">Other</option>
-                        </select>
-                      </div>
-
-                      {/* Address Type */}
-                      <div className="flex flex-col">
-                        <label className="text-sm font-medium text-gray-700 mb-1">
-                          Address Type <span className="text-red-600">*</span>
-                        </label>
-                        <select
-                          name="addressType"
-                          required
-                          value={form.addressType}
-                          onChange={updateForm}
-                          className="border rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-[#D4A017]"
-                        >
-                          <option value="">Select Type</option>
-                          <option value="current">Current</option>
-                          <option value="permanent">Permanent</option>
-                          <option value="office">Office</option>
-                        </select>
-                      </div>
-
-                      {/* FROM MONTH */}
-                      <div className="flex flex-col">
-                        <label className="text-sm font-medium text-gray-700 mb-1">
-                          From Month <span className="text-red-600">*</span>
-                        </label>
-                        <select
-                          name="fromMonth"
-                          required
-                          value={form.fromMonth}
-                          onChange={updateForm}
-                          className="border rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-[#D4A017]"
-                        >
-                          <option value="">Select Month</option>
-                          {months.map((m) => (
-                            <option key={m} value={m}>
-                              {m}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      {/* FROM YEAR */}
-                      <div className="flex flex-col">
-                        <label className="text-sm font-medium text-gray-700 mb-1">
-                          From Year <span className="text-red-600">*</span>
-                        </label>
-                        <select
-                          name="fromYear"
-                          required
-                          value={form.fromYear}
-                          onChange={updateForm}
-                          className="border rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-[#D4A017]"
-                        >
-                          <option value="">Select Year</option>
-                          {years.map((y) => (
-                            <option key={y} value={y}>
-                              {y}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      {/* TO MONTH */}
-                      <div className="flex flex-col">
-                        <label className="text-sm font-medium text-gray-700 mb-1">
-                          To Month <span className="text-red-600">*</span>
-                        </label>
-                        <select
-                          name="toMonth"
-                          required
-                          value={form.toMonth}
-                          onChange={updateForm}
-                          className="border rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-[#D4A017]"
-                        >
-                          <option value="">Select Month</option>
-                          {months.map((m) => (
-                            <option key={m} value={m}>
-                              {m}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      {/* TO YEAR */}
-                      <div className="flex flex-col">
-                        <label className="text-sm font-medium text-gray-700 mb-1">
-                          To Year <span className="text-red-600">*</span>
-                        </label>
-                        <select
-                          name="toYear"
-                          required
-                          value={form.toYear}
-                          onChange={updateForm}
-                          className="border rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-[#D4A017]"
-                        >
-                          <option value="">Select Year</option>
-                          {years.map((y) => (
-                            <option key={y} value={y}>
-                              {y}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      {/* VERIFIED BY RELATION */}
-                      <div className="flex flex-col">
-                        <label className="text-sm font-medium text-gray-700 mb-1">
-                          Verified By (Relation){" "}
-                          <span className="text-red-600">*</span>
-                        </label>
-                        <select
-                          name="verifiedByRelation"
-                          required
-                          value={form.verifiedByRelation}
-                          onChange={updateForm}
-                          className="border rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-[#D4A017]"
-                        >
-                          <option value="">Select Relation</option>
-                          <option value="self">Self</option>
-                          <option value="father">Father</option>
-                          <option value="mother">Mother</option>
-                          <option value="brother">Brother</option>
-                          <option value="relative">Relative</option>
-                          <option value="landlord">Landlord</option>
-                        </select>
-                      </div>
-
-                      {/* VERIFIED PERSON NAME */}
-                      <div className="flex flex-col">
-                        <label className="text-sm font-medium text-gray-700 mb-1">
-                          Verified Person Name{" "}
-                          <span className="text-red-600">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          name="verifiedPersonName"
-                          placeholder="Enter Name"
-                          required
-                          value={form.verifiedPersonName}
-                          onChange={updateForm}
-                          className="border rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-[#D4A017]"
-                        />
-                      </div>
-                    </div>
-                  );
-                })()}
-              </div>
-            </div>
-
+          
             {/* REVIEW & SUBMIT SECTION */}
             <div className="bg-white border border-gray-200 shadow-md rounded-xl mt-8 w-full">
               <div className="max-w-5xl mx-auto px-5 py-6 w-full">
@@ -859,9 +859,10 @@ export default function CandidateForm() {
 
       {/* FOOTER */}
       <footer className="bg-white text-center py-4 text-sm text-gray-500 border-t mt-4">
-        © {new Date().getFullYear()} Lions Digital Address • All Rights Reserved
+        © {new Date().getFullYear()} LionsVerify Tech PVT. LTD. • All Rights Reserved
         | Doveloped by Mr. Karunanidhi
       </footer>
     </div>
   );
 }
+
