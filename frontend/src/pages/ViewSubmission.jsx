@@ -515,7 +515,6 @@ function handleAccept() {
                 <option value="">Select type</option>
                 <option value="current">Current</option>
                 <option value="permanent">Permanent</option>
-                <option value="office">Office</option>
               </select>
             </div>
 
@@ -573,10 +572,9 @@ function handleAccept() {
               >
                 <option value="">Select</option>
                 <option value="self">Self</option>
-                <option value="father">Father</option>
-                <option value="mother">Mother</option>
-                <option value="brother">Brother</option>
-                <option value="relative">Relative</option>
+                <option value="friend">Friend</option>
+                <option value="family">Family</option>
+                <option value="neighbour">Neighbour</option>
                 <option value="landlord">Landlord</option>
               </select>
             </div>
@@ -683,7 +681,7 @@ function handleAccept() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* House Entrance */}
             <div className="border bg-gray-100 rounded">
-              <div className="text-sm text-gray-500 mb-2">House Entrance</div>
+              <div className="text-sm text-gray-500 mb-2">House Photo</div>
               {sub.photos?.houseEntrance ? (
                 <div className="aspect-[1/1] overflow-hidden p-2 rounded">
                   <img
@@ -719,7 +717,7 @@ function handleAccept() {
 
             {/* ID Photo */}
             <div className="border bg-gray-100 rounded">
-              <div className="text-sm text-gray-500 mb-2">ID Photo</div>
+              <div className="text-sm text-gray-500 mb-2">Address Proof</div>
               {sub.photos?.idPhoto ? (
                 <div className="aspect-[1/1] overflow-hidden p-2 rounded">
                   <img
@@ -888,5 +886,6 @@ function handleAccept() {
     </AdminLayout>
   );
 }
+
 
 
