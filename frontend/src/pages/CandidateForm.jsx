@@ -157,11 +157,52 @@ export default function CandidateForm() {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  async function submitForm() {
-    if (!mapReady) {
-      alert("Map is still loading. Please wait 2–3 seconds.");
-      return;
+  function validateForm() {
+  const requiredFields = [
+    "ownership",
+    "addressType",
+    "fromMonth",
+    "fromYear",
+    "toMonth",
+    "toYear",
+    "verifiedByRelation",
+    "verifiedPersonName",
+  ];
+
+  for (let field of requiredFields) {
+    if (!form[field] || form[field].trim() === "") {
+      alert(`Please fill ${field.replace(/([A-Z])/g, " $1")}`);
+      return false;
     }
+  }
+
+  if (!gps.lat || !gps.lng) {
+    alert("Please allow location access");
+    return false;
+  }
+
+  if (!houseBlob || !selfieBlob || !idBlob || !landmarkBlob) {
+    alert("All 4 photos are mandatory");
+    return false;
+  }
+
+  if (!signatureDataUrl) {
+    alert("Signature is mandatory");
+    return false;
+  }
+
+  return true;
+}
+
+
+  async function submitForm() {
+  if (!validateForm()) return;
+
+  if (!mapReady) {
+    alert("Map is still loading. Please wait 2–3 seconds.");
+    return;
+  }
+
 
     if (!gps.lat || !gps.lng) {
       alert("Location required.");
@@ -332,7 +373,7 @@ export default function CandidateForm() {
 
                   <div className="bg-gray-50 p-3 sm:p-4 rounded-lg border w-full box-border">
                     <p className="text-xs sm:text-sm text-gray-500">
-                      Candidate Registered Address
+                      Registered Address
                     </p>
                     <h3 className="text-sm font-semibold break-words">
                       {invite?.fullAddress}
@@ -345,7 +386,7 @@ export default function CandidateForm() {
               </div>
             </div>
 
-             {/* ADDRESS DETAILS SECTION */}
+            {/* ADDRESS DETAILS SECTION */}
             <div className="bg-white border border-gray-200 shadow-md rounded-xl mt-8 w-full">
               <div className="max-w-5xl mx-auto px-5 py-6 w-full">
                 <h2 className="text-xl font-bold text-[#0B8A42] mb-4">
@@ -416,6 +457,7 @@ export default function CandidateForm() {
                           <option value="">Select Type</option>
                           <option value="current">Current</option>
                           <option value="permanent">Permanent</option>
+                          <option value="office">Office</option>
                         </select>
                       </div>
 
@@ -518,9 +560,10 @@ export default function CandidateForm() {
                         >
                           <option value="">Select Relation</option>
                           <option value="self">Self</option>
-                          <option value="friend">Friend</option>
-                          <option value="family">Family</option>
-                          <option value="neighbour">Neighbour</option>
+                          <option value="father">Father</option>
+                          <option value="mother">Mother</option>
+                          <option value="brother">Brother</option>
+                          <option value="relative">Relative</option>
                           <option value="landlord">Landlord</option>
                         </select>
                       </div>
@@ -749,7 +792,7 @@ export default function CandidateForm() {
   </div>
 </div>
 
-          
+            
             {/* REVIEW & SUBMIT SECTION */}
             <div className="bg-white border border-gray-200 shadow-md rounded-xl mt-8 w-full">
               <div className="max-w-5xl mx-auto px-5 py-6 w-full">
@@ -859,10 +902,9 @@ export default function CandidateForm() {
 
       {/* FOOTER */}
       <footer className="bg-white text-center py-4 text-sm text-gray-500 border-t mt-4">
-        © {new Date().getFullYear()} LionsVerify Tech PVT. LTD. • All Rights Reserved
+        © {new Date().getFullYear()} Lions Digital Address • All Rights Reserved
         | Doveloped by Mr. Karunanidhi
       </footer>
     </div>
   );
 }
-
